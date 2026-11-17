@@ -1,0 +1,49 @@
+{% comment %}
+  Renders a theme image. A file chosen in the editor replaces the packaged
+  asset, so the page still looks finished before anything is uploaded.
+
+  @param image {image} image_picker value, optional
+  @param asset {string} filename in assets/, used when image is empty
+  @param class {string} class names
+  @param alt {string} accessible name; empty for decorative images
+  @param width {number} requested Shopify image width
+  @param intrinsic_width {number} asset width
+  @param height {number} asset height
+  @param loading {string} lazy or eager
+  @param fetchpriority {string} high for the hero stack only
+{% endcomment %}
+{%- liquid
+  assign img_loading = loading | default: 'lazy'
+  assign img_width = width | default: 1200
+  assign img_height = height | default: img_width
+  assign img_intrinsic = intrinsic_width | default: img_width
+-%}
+{%- if image != blank -%}
+  <img
+    class="{{ class }}"
+    src="{{ image | image_url: width: img_width }}"
+    srcset="{{ image | image_url: width: 400 }} 400w, {{ image | image_url: width: 800 }} 800w, {{ image | image_url: width: img_width }} {{ img_width }}w"
+    sizes="(min-width: 990px) 42vw, 90vw"
+    alt="{{ alt | escape }}"
+    width="{{ image.width }}"
+    height="{{ image.height }}"
+    loading="{{ img_loading }}"
+    {% if fetchpriority != blank %}
+      fetchpriority="{{ fetchpriority }}"
+    {% endif %}
+    decoding="async"
+  >
+{%- elsif asset != blank -%}
+  <img
+    class="{{ class }}"
+    src="{{ asset | asset_url }}"
+    alt="{{ alt | escape }}"
+    width="{{ img_intrinsic }}"
+    height="{{ img_height }}"
+    loading="{{ img_loading }}"
+    {% if fetchpriority != blank %}
+      fetchpriority="{{ fetchpriority }}"
+    {% endif %}
+    decoding="async"
+  >
+{%- endif -%}

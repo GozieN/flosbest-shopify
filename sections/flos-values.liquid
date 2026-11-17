@@ -1,0 +1,112 @@
+<section class="values" aria-label="{{ section.settings.accessibility_label | escape }}">
+  <div class="wrap values-inner">
+    {%- if section.settings.eyebrow != blank -%}
+      <p class="eyebrow purple-text">{{ section.settings.eyebrow | escape }}</p>
+    {%- endif -%}
+    <h2>{{ section.settings.heading | escape }}</h2>
+    <ul class="values-list">
+      {%- for block in section.blocks -%}
+        <li {{ block.shopify_attributes }}>
+          <span class="values-icon">{% render 'flos-icon', name: block.settings.icon, size: 32 %}</span>
+          <span>
+            <strong>{{ block.settings.title | escape }}</strong>
+            {{ block.settings.text | escape }}
+          </span>
+        </li>
+      {%- endfor -%}
+    </ul>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Values",
+  "tag": "div",
+  "class": "flos flos-values",
+  "settings": [
+    {
+      "type": "text",
+      "id": "accessibility_label",
+      "label": "Accessibility label",
+      "default": "Our values"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Our values"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "What we hold to."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "value",
+      "name": "Value",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Customer joy"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Text",
+          "default": "Delight at the table comes first. The mix should feel like a love letter, not a chore."
+        },
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "default": "heart",
+          "options": [
+            { "value": "heart", "label": "Heart" },
+            { "value": "grains", "label": "Grains" },
+            { "value": "clock", "label": "Clock" },
+            { "value": "leaf", "label": "Leaf" },
+            { "value": "sun", "label": "Sun" }
+          ]
+        }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    {
+      "name": "Values",
+      "blocks": [
+        {
+          "type": "value",
+          "settings": {
+            "title": "Customer joy",
+            "text": "Delight at the table comes first. The mix should feel like a love letter, not a chore.",
+            "icon": "heart"
+          }
+        },
+        {
+          "type": "value",
+          "settings": {
+            "title": "Healthy ingredients",
+            "text": "Fiber, superfoods, and moringa go into the batter, so the good stuff is in every pancake.",
+            "icon": "grains"
+          }
+        },
+        {
+          "type": "value",
+          "settings": {
+            "title": "Time back",
+            "text": "The mix takes the measuring off your hands, so Saturday morning stays the easy part.",
+            "icon": "clock"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,75 +1,168 @@
 {
   "sections": {
-    "image_banner": {
-      "type": "image-banner",
+    "flos_hero": {
+      "type": "flos-hero",
+      "settings": {
+        "heading": "Good mornings",
+        "heading_emphasis": "start here.",
+        "subheading": "Pantry-friendly pancakes, like you've never had before.",
+        "button_label": "Meet the stack",
+        "art_label": "Hero pancake stack with blueberries and maple syrup"
+      }
+    },
+    "flos_perks": {
+      "type": "flos-perks",
       "blocks": {
-        "heading": {
-          "type": "heading",
+        "fiber": {
+          "type": "perk",
           "settings": {
-            "heading": "Browse our latest products",
-            "heading_size": "h0"
+            "label": "Source of fiber",
+            "icon": "grains"
           }
         },
-        "button": {
-          "type": "buttons",
+        "superfood": {
+          "type": "perk",
           "settings": {
-            "button_label_1": "Shop all",
-            "button_link_1": "shopify://collections/all",
-            "button_style_secondary_1": true,
-            "button_label_2": "",
-            "button_link_2": "",
-            "button_style_secondary_2": false
+            "label": "Superfood flavors",
+            "icon": "lightning"
+          }
+        },
+        "moringa": {
+          "type": "perk",
+          "settings": {
+            "label": "Vitamin-rich moringa",
+            "icon": "leaf"
+          }
+        },
+        "protein": {
+          "type": "perk",
+          "settings": {
+            "label": "9g protein",
+            "icon": "egg"
           }
         }
       },
-      "block_order": [
-        "heading",
-        "button"
-      ],
+      "block_order": ["fiber", "superfood", "moringa", "protein"],
       "settings": {
-        "image_overlay_opacity": 40,
-        "image_height": "large",
-        "desktop_content_position": "bottom-center",
-        "show_text_box": false,
-        "image_behavior": "none",
-        "desktop_content_alignment": "center",
-        "color_scheme": "scheme-3",
-        "mobile_content_alignment": "center",
-        "stack_images_on_mobile": false,
-        "show_text_below": false
+        "accessibility_label": "What makes the pancakes different",
+        "show_drip": true
       }
     },
-    "featured_collection": {
-      "type": "featured-collection",
+    "flos_flavors": {
+      "type": "flos-flavors",
+      "blocks": {
+        "cinnamon": {
+          "type": "flavor",
+          "settings": {
+            "title": "Cinnamon Chia Sensation",
+            "subtitle": "Warm + cozy",
+            "color": "#f6c2ca",
+            "asset": "flos-cinnamon.webp"
+          }
+        },
+        "buttermilk": {
+          "type": "flavor",
+          "settings": {
+            "title": "Buttermilk Bites",
+            "subtitle": "Classic + fluffy",
+            "color": "#fff18b",
+            "asset": "flos-buttermilk.jpg"
+          }
+        },
+        "matcha": {
+          "type": "flavor",
+          "settings": {
+            "title": "Matcha Mornings",
+            "subtitle": "Earthy + fresh",
+            "color": "#c8e397",
+            "asset": "flos-matcha.webp"
+          }
+        },
+        "blueberry": {
+          "type": "flavor",
+          "settings": {
+            "title": "Blueberry Acai Bliss",
+            "subtitle": "Fruity + Sweet",
+            "color": "#cbb8f8",
+            "asset": "flos-blueberry.webp"
+          }
+        }
+      },
+      "block_order": ["cinnamon", "buttermilk", "matcha", "blueberry"],
       "settings": {
-        "title": "Featured products",
-        "heading_size": "h2",
-        "description": "",
-        "show_description": false,
-        "description_style": "body",
-        "collection": "all",
-        "products_to_show": 8,
-        "columns_desktop": 4,
-        "color_scheme": "scheme-1",
-        "full_width": false,
-        "show_view_all": true,
-        "view_all_style": "solid",
-        "enable_desktop_slider": false,
-        "swipe_on_mobile": false,
-        "image_ratio": "adapt",
-        "image_shape": "default",
-        "show_secondary_image": true,
-        "show_vendor": false,
-        "show_rating": false,
-        "quick_add": "none",
-        "columns_mobile": "2",
-        "padding_top": 44,
-        "padding_bottom": 36
+        "eyebrow": "The breakfast lineup",
+        "heading": "Pick your",
+        "heading_emphasis": "pancake mood.",
+        "note": "Every flavor is enriched with fermented milk, and moringa and boosted with superfood flavors."
+      }
+    },
+    "flos_steps": {
+      "type": "flos-steps",
+      "blocks": {
+        "mix": {
+          "type": "step",
+          "settings": {
+            "number": "01",
+            "title": "Mix it up",
+            "text": "Water, eggs, and our magic mix. That's the whole list.",
+            "icon": "package"
+          }
+        },
+        "cook": {
+          "type": "step",
+          "settings": {
+            "number": "02",
+            "title": "Rest & cook",
+            "text": "Let the batter chill. Then give it a golden, buttery sizzle.",
+            "icon": "pot"
+          }
+        },
+        "stack": {
+          "type": "step",
+          "settings": {
+            "number": "03",
+            "title": "Stack & enjoy",
+            "text": "Top high, pour generously, and make the morning yours.",
+            "icon": "fork"
+          }
+        }
+      },
+      "block_order": ["mix", "cook", "stack"],
+      "settings": {
+        "eyebrow": "The Flo's Best way",
+        "heading": "Three easy steps",
+        "heading_emphasis": "to your best plate."
+      }
+    },
+    "flos_shop": {
+      "type": "flos-shop",
+      "settings": {
+        "eyebrow": "Get the Goods",
+        "heading": "Make your best",
+        "heading_emphasis": "breakkie.",
+        "text": "Warm spice, fresh, classic or fruity a chia crunch, and the trusted moringa, superfood base in every box.",
+        "button_label": "Shop the launch",
+        "package_kicker": "FLO'S",
+        "package_emphasis": "cinnamon chia",
+        "package_line": "sensation",
+        "package_footer": "pancakes"
+      }
+    },
+    "flos_testimonial": {
+      "type": "flos-testimonial",
+      "settings": {
+        "accessibility_label": "Customer testimonial",
+        "quote": "“They are so soft and tasty, I’ve never had pancake flavors like this! It makes a perfect gift!”",
+        "citation": "— A happy breakfast person"
       }
     }
   },
   "order": [
-    "image_banner",
-    "featured_collection"
+    "flos_hero",
+    "flos_perks",
+    "flos_flavors",
+    "flos_steps",
+    "flos_shop",
+    "flos_testimonial"
   ]
 }

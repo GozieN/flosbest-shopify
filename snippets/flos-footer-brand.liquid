@@ -1,0 +1,92 @@
+{% comment %}
+  Brand close of the Dawn footer. Newsletter, payment icons, and policies
+  stay in footer.liquid so Shopify checkout features are not replaced.
+{% endcomment %}
+{%- liquid
+  assign button_url = routes.all_products_collection_url
+  if section.settings.brand_button_link != blank
+    assign button_url = section.settings.brand_button_link
+  endif
+-%}
+<div class="flos-footer-brand">
+  <div class="footer-headline-strip">
+    <h2>
+      {{ section.settings.brand_heading | escape }}
+      {%- if section.settings.brand_heading_emphasis != blank -%}
+        <br>
+        <em>{{ section.settings.brand_heading_emphasis | escape }}</em>
+      {%- endif -%}
+    </h2>
+  </div>
+  {% render 'flos-newsletter' %}
+  <div class="footer-yumm-strip">
+    {% render 'flos-image',
+      image: section.settings.brand_yumm,
+      asset: 'flos-yumm.webp',
+      alt: 'Yumm',
+      class: '',
+      width: 640,
+      intrinsic_width: 640,
+      height: 360
+    %}
+  </div>
+  <div class="footer-main">
+    <div class="footer-bar">
+      <a href="{{ routes.root_url }}" aria-label="{{ shop.name | escape }} home">
+        {% render 'flos-image',
+          image: section.settings.brand_logo,
+          asset: 'flos-logo-dark.webp',
+          alt: shop.name,
+          class: 'footer-logo',
+          width: 256,
+          intrinsic_width: 256,
+          height: 256
+        %}
+      </a>
+      <nav class="footer-nav" aria-label="Footer">
+        {%- if section.settings.brand_menu != blank -%}
+          {%- for link in section.settings.brand_menu.links -%}
+            <a href="{{ link.url }}">{{ link.title | escape }}</a>
+          {%- endfor -%}
+        {%- else -%}
+          <a href="{{ pages['about'].url | default: '/pages/about' }}">About</a>
+          <a href="{{ pages['contact'].url | default: '/pages/contact' }}">Contact</a>
+          <a href="{{ routes.all_products_collection_url }}">Gifts</a>
+          <a href="{{ routes.all_products_collection_url }}">Tasty! ↗</a>
+        {%- endif -%}
+      </nav>
+      <details class="footer-collapse">
+        <summary class="footer-toggle" aria-label="Footer menu">
+          <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+            <path d="M4 7h16M4 12h16M4 17h16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+          </svg>
+        </summary>
+        <nav class="footer-nav footer-nav--menu" aria-label="Footer">
+          {%- if section.settings.brand_menu != blank -%}
+            {%- for link in section.settings.brand_menu.links -%}
+              <a href="{{ link.url }}">{{ link.title | escape }}</a>
+            {%- endfor -%}
+          {%- else -%}
+            <a href="{{ pages['about'].url | default: '/pages/about' }}">About</a>
+            <a href="{{ pages['contact'].url | default: '/pages/contact' }}">Contact</a>
+            <a href="{{ routes.all_products_collection_url }}">Gifts</a>
+            <a href="{{ routes.all_products_collection_url }}">Tasty! ↗</a>
+          {%- endif -%}
+        </nav>
+      </details>
+    </div>
+    {% render 'flos-image',
+      image: section.settings.brand_pancakes,
+      asset: 'flos-footer-pancakes.webp',
+      alt: 'Stack of pancakes with maple syrup being poured',
+      class: 'footer-pancakes',
+      width: 1000,
+      intrinsic_width: 605,
+      height: 674
+    %}
+    <a class="pill-button pill-button--cream" href="{{ button_url }}">
+      {{ section.settings.brand_button_label | escape }}
+      <span aria-hidden="true">↗</span>
+    </a>
+  </div>
+</div>

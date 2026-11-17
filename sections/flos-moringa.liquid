@@ -1,0 +1,122 @@
+<section class="moringa" aria-label="{{ section.settings.accessibility_label | escape }}">
+  <div class="wrap moringa-inner">
+    {%- if section.settings.eyebrow != blank -%}
+      <p class="eyebrow">{{ section.settings.eyebrow | escape }}</p>
+    {%- endif -%}
+    <h2>{{ section.settings.heading | escape }}</h2>
+    {%- if section.settings.lead != blank -%}
+      <p class="moringa-lead">{{ section.settings.lead | escape }}</p>
+    {%- endif -%}
+    <ul class="moringa-list">
+      {%- for block in section.blocks -%}
+        <li {{ block.shopify_attributes }}>
+          <span class="moringa-icon">{% render 'flos-icon', name: block.settings.icon, size: 32 %}</span>
+          <span>
+            <strong>{{ block.settings.title | escape }}</strong>
+            {{ block.settings.text | escape }}
+          </span>
+        </li>
+      {%- endfor -%}
+    </ul>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Moringa",
+  "tag": "div",
+  "class": "flos flos-moringa",
+  "settings": [
+    {
+      "type": "text",
+      "id": "accessibility_label",
+      "label": "Accessibility label",
+      "default": "Why moringa is in every pancake"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "In every mix"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Moringa is the base."
+    },
+    {
+      "type": "textarea",
+      "id": "lead",
+      "label": "Introduction",
+      "default": "Moringa is a base in each of our pancakes because the leaves are naturally high in vitamins and minerals. It is not a topping we sprinkle on later. It is in the mix, in every flavor."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "point",
+      "name": "Point",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "In every pancake"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Text",
+          "default": "The base of each Flo's Best mix."
+        },
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "default": "leaf",
+          "options": [
+            { "value": "leaf", "label": "Leaf" },
+            { "value": "sun", "label": "Sun" },
+            { "value": "drop", "label": "Drop" },
+            { "value": "grains", "label": "Grains" },
+            { "value": "heart", "label": "Heart" },
+            { "value": "clock", "label": "Clock" }
+          ]
+        }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    {
+      "name": "Moringa",
+      "blocks": [
+        {
+          "type": "point",
+          "settings": {
+            "title": "In every pancake",
+            "text": "The base of each Flo's Best mix.",
+            "icon": "leaf"
+          }
+        },
+        {
+          "type": "point",
+          "settings": {
+            "title": "High in vitamins",
+            "text": "Leaves that carry a broad mix of vitamins.",
+            "icon": "sun"
+          }
+        },
+        {
+          "type": "point",
+          "settings": {
+            "title": "Rich in minerals",
+            "text": "A simple way to bring minerals to the plate.",
+            "icon": "drop"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

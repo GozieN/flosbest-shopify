@@ -1,0 +1,41 @@
+<section class="testimonial" aria-label="{{ section.settings.accessibility_label | escape }}">
+  <blockquote class="testimonial-bubble">
+    <p>{{ section.settings.quote | escape }}</p>
+    {%- if section.settings.citation != blank -%}
+      <cite>{{ section.settings.citation | escape }}</cite>
+    {%- endif -%}
+  </blockquote>
+</section>
+
+{% schema %}
+{
+  "name": "Testimonial",
+  "tag": "div",
+  "class": "flos flos-testimonial",
+  "settings": [
+    {
+      "type": "text",
+      "id": "accessibility_label",
+      "label": "Accessibility label",
+      "default": "Customer testimonial"
+    },
+    {
+      "type": "textarea",
+      "id": "quote",
+      "label": "Quote",
+      "default": "“They are so soft and tasty, I’ve never had pancake flavors like this! It makes a perfect gift!”"
+    },
+    {
+      "type": "text",
+      "id": "citation",
+      "label": "Citation",
+      "default": "— A happy breakfast person"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Testimonial"
+    }
+  ]
+}
+{% endschema %}

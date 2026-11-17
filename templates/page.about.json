@@ -1,0 +1,94 @@
+{
+  "sections": {
+    "flos_about": {
+      "type": "flos-about",
+      "settings": {
+        "eyebrow": "About",
+        "heading": "A love letter",
+        "heading_emphasis": "you can eat.",
+        "paragraph_1": "Born out of cherished Saturday morning traditions. We also saw pancakes as a beautiful blank canvas. After researching and incorporating healthy food sources into our diets, like calming herb teas and chia-seed enriched smoothies we thought, why not incorporate it into our breakfast plate too?",
+        "paragraph_2": "Flo's Best original pancake mix is like a love letter in edible form, bringing delight to your table, taking time off your hands, and introducing new flavors to your palate."
+      }
+    },
+    "flos_moringa": {
+      "type": "flos-moringa",
+      "blocks": {
+        "base": {
+          "type": "point",
+          "settings": {
+            "title": "In every pancake",
+            "text": "The base of each Flo's Best mix.",
+            "icon": "leaf"
+          }
+        },
+        "vitamins": {
+          "type": "point",
+          "settings": {
+            "title": "High in vitamins",
+            "text": "Leaves that carry a broad mix of vitamins.",
+            "icon": "sun"
+          }
+        },
+        "minerals": {
+          "type": "point",
+          "settings": {
+            "title": "Rich in minerals",
+            "text": "A simple way to bring minerals to the plate.",
+            "icon": "drop"
+          }
+        }
+      },
+      "block_order": ["base", "vitamins", "minerals"],
+      "settings": {
+        "accessibility_label": "Why moringa is in every pancake",
+        "eyebrow": "In every mix",
+        "heading": "Moringa is the base.",
+        "lead": "Moringa is a base in each of our pancakes because the leaves are naturally high in vitamins and minerals. It is not a topping we sprinkle on later. It is in the mix, in every flavor."
+      }
+    },
+    "flos_testimonial": {
+      "type": "flos-testimonial",
+      "settings": {
+        "accessibility_label": "Customer testimonial",
+        "quote": "“They are so soft and tasty, I’ve never had pancake flavors like this! It makes a perfect gift!”",
+        "citation": "— A happy breakfast person"
+      }
+    },
+    "flos_values": {
+      "type": "flos-values",
+      "blocks": {
+        "joy": {
+          "type": "value",
+          "settings": {
+            "title": "Customer joy",
+            "text": "Delight at the table comes first. The mix should feel like a love letter, not a chore.",
+            "icon": "heart"
+          }
+        },
+        "ingredients": {
+          "type": "value",
+          "settings": {
+            "title": "Healthy ingredients",
+            "text": "Fiber, superfoods, and moringa go into the batter, so the good stuff is in every pancake.",
+            "icon": "grains"
+          }
+        },
+        "time": {
+          "type": "value",
+          "settings": {
+            "title": "Time back",
+            "text": "The mix takes the measuring off your hands, so Saturday morning stays the easy part.",
+            "icon": "clock"
+          }
+        }
+      },
+      "block_order": ["joy", "ingredients", "time"],
+      "settings": {
+        "accessibility_label": "Our values",
+        "eyebrow": "Our values",
+        "heading": "What we hold to."
+      }
+    }
+  },
+  "order": ["flos_about", "flos_moringa", "flos_values", "flos_testimonial"]
+}

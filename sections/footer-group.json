@@ -8,8 +8,13 @@
       "block_order": [],
       "settings": {
         "color_scheme": "scheme-1",
+        "show_brand_band": true,
+        "brand_heading": "Pancakes like you've",
+        "brand_heading_emphasis": "never had before.",
+        "brand_button_label": "Get a stack",
+        "brand_tagline": "Made for slow mornings + big dreams.",
         "newsletter_enable": true,
-        "newsletter_heading": "Subscribe to our emails",
+        "newsletter_heading": "Subscribe the best list!",
         "enable_follow_on_shop": true,
         "show_social": true,
         "enable_country_selector": true,
@@ -17,8 +22,8 @@
         "payment_enable": true,
         "show_policy": true,
         "margin_top": 0,
-        "padding_top": 36,
-        "padding_bottom": 36
+        "padding_top": 0,
+        "padding_bottom": 0
       }
     }
   },

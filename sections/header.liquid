@@ -22,6 +22,10 @@
     margin-left: -1.2rem;
   }
 
+  .flos-header header-drawer {
+    margin-left: 0;
+  }
+
   {%- if section.settings.sticky_header_type == 'reduce-logo-size' -%}
     .scrolled-past-header .header__heading-logo-wrapper {
       width: 75%;
@@ -146,7 +150,7 @@
   {% if header_tag == 'sticky-header' %}
     data-sticky-type="{{ section.settings.sticky_header_type }}"
   {% endif %}
-  class="header-wrapper color-{{ section.settings.color_scheme }} gradient{% if section.settings.show_line_separator %} header-wrapper--border-bottom{% endif %}"
+  class="header-wrapper color-{{ section.settings.color_scheme }} gradient{% if section.settings.show_line_separator %} header-wrapper--border-bottom{% endif %}{% if section.settings.show_brand_style %} flos-header{% endif %}"
 >
   {%- liquid
     assign social_links = false
@@ -171,17 +175,17 @@
         assign render_search_left = true
       endif
 
-      if section.settings.menu != blank
+      if section.settings.menu != blank or section.settings.show_brand_links
         render 'header-drawer', show_country_selector: country_selector, show_language_selector: language_selector, show_social_links: social_links
       endif
 
-      if render_search_left
+      if render_search_left and section.settings.show_brand_style == false
         render 'header-search', input_id: 'Search-In-Modal-1'
       endif
     -%}
 
     {%- if section.settings.logo_position != 'middle-center' -%}
-      {%- if request.page_type == 'index' -%}
+      {%- if request.page_type == 'index' and section.settings.show_brand_style == false -%}
         <h1 class="header__heading">
       {%- endif -%}
       <a href="{{ routes.root_url }}" class="header__heading-link link link--text focus-inset">
@@ -205,16 +209,26 @@
             }}
           </div>
         {%- else -%}
-          <span class="h2">{{ shop.name }}</span>
+          {%- if section.settings.show_brand_style -%}
+            <img
+              src="{{ 'flos-logo-light.webp' | asset_url }}"
+              alt="{{ shop.name | escape }}"
+              class="header__heading-logo"
+              width="256"
+              height="256"
+            >
+          {%- else -%}
+            <span class="h2">{{ shop.name }}</span>
+          {%- endif -%}
         {%- endif -%}
       </a>
-      {%- if request.page_type == 'index' -%}
+      {%- if request.page_type == 'index' and section.settings.show_brand_style == false -%}
         </h1>
       {%- endif -%}
     {%- endif -%}
 
     {%- liquid
-      if section.settings.menu != blank
+      if section.settings.show_brand_links == false and section.settings.menu != blank
         if section.settings.menu_type_desktop == 'dropdown'
           render 'header-dropdown-menu'
         elsif section.settings.menu_type_desktop != 'drawer'
@@ -223,8 +237,16 @@
       endif
     %}
 
+    {%- if section.settings.show_brand_links -%}
+      <nav class="flos-nav header__inline-menu" aria-label="Primary">
+        <ul class="flos-nav-list" role="list">
+          {% render 'flos-brand-links', style: 'inline' %}
+        </ul>
+      </nav>
+    {%- endif -%}
+
     {%- if section.settings.logo_position == 'middle-center' -%}
-      {%- if request.page_type == 'index' -%}
+      {%- if request.page_type == 'index' and section.settings.show_brand_style == false -%}
         <h1 class="header__heading">
       {%- endif -%}
       <a href="{{ routes.root_url }}" class="header__heading-link link link--text focus-inset">
@@ -248,10 +270,20 @@
             }}
           </div>
         {%- else -%}
-          <span class="h2">{{ shop.name }}</span>
+          {%- if section.settings.show_brand_style -%}
+            <img
+              src="{{ 'flos-logo-light.webp' | asset_url }}"
+              alt="{{ shop.name | escape }}"
+              class="header__heading-logo"
+              width="256"
+              height="256"
+            >
+          {%- else -%}
+            <span class="h2">{{ shop.name }}</span>
+          {%- endif -%}
         {%- endif -%}
       </a>
-      {%- if request.page_type == 'index' -%}
+      {%- if request.page_type == 'index' and section.settings.show_brand_style == false -%}
         </h1>
       {%- endif -%}
     {%- endif -%}
@@ -280,16 +312,35 @@
           </localization-form>
         {%- endif -%}
       </div>
-      {% render 'header-search', input_id: 'Search-In-Modal' %}
-
-      {%- if shop.customer_accounts_enabled -%}
-        <shopify-account
-          menu="{{ settings.customer_account_menu | default: 'customer-account-main-menu' }}"
+      {%- if section.settings.show_brand_style -%}
+        <a href="{{ routes.search_url }}" class="header__icon header__icon--search link focus-inset" aria-label="{{ 'general.search.search' | t }}">
+          <span class="svg-wrapper">{{ 'icon-search.svg' | inline_asset_content }}</span>
+        </a>
+        <a
+          href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}"
           class="header__icon header__icon--account link focus-inset"
         >
-          <span slot="signed-out-avatar" class="svg-wrapper">{{ 'icon-account.svg' | inline_asset_content }}</span>
-          <span slot="signed-out-avatar" class="visually-hidden">{{ 'customer.log_in' | t }}</span>
-        </shopify-account>
+          <span class="svg-wrapper">{{ 'icon-account.svg' | inline_asset_content }}</span>
+          <span class="visually-hidden">
+            {%- if customer -%}
+              {{ 'customer.account.title' | t }}
+            {%- else -%}
+              {{ 'customer.log_in' | t }}
+            {%- endif -%}
+          </span>
+        </a>
+      {%- else -%}
+        {% render 'header-search', input_id: 'Search-In-Modal' %}
+
+        {%- if shop.customer_accounts_enabled -%}
+          <shopify-account
+            menu="{{ settings.customer_account_menu | default: 'customer-account-main-menu' }}"
+            class="header__icon header__icon--account link focus-inset"
+          >
+            <span slot="signed-out-avatar" class="svg-wrapper">{{ 'icon-account.svg' | inline_asset_content }}</span>
+            <span slot="signed-out-avatar" class="visually-hidden">{{ 'customer.log_in' | t }}</span>
+          </shopify-account>
+        {%- endif -%}
       {%- endif -%}
 
       {%- for block in section.blocks -%}
@@ -638,6 +689,68 @@
     {
       "type": "paragraph",
       "content": "t:sections.header.settings.customer_account_menu.content"
+    },
+    {
+      "type": "header",
+      "content": "Brand header"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_brand_style",
+      "label": "Use Flo's Best header style",
+      "default": true,
+      "info": "Cream bar and purple button. Search, account, and cart stay."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_brand_links",
+      "label": "Show Flavors, About, and Shop",
+      "default": true,
+      "info": "Desktop uses these links. The mobile menu still includes the menu selected above."
+    },
+    {
+      "type": "text",
+      "id": "brand_label_1",
+      "label": "Link 1 label",
+      "default": "Flavors"
+    },
+    {
+      "type": "url",
+      "id": "brand_link_1",
+      "label": "Link 1"
+    },
+    {
+      "type": "text",
+      "id": "brand_label_2",
+      "label": "Link 2 label",
+      "default": "About"
+    },
+    {
+      "type": "url",
+      "id": "brand_link_2",
+      "label": "Link 2"
+    },
+    {
+      "type": "text",
+      "id": "brand_label_3",
+      "label": "Link 3 label",
+      "default": "Shop"
+    },
+    {
+      "type": "url",
+      "id": "brand_link_3",
+      "label": "Link 3"
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Button label",
+      "default": "Get a stack"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "Button link"
     },
     {
       "type": "header",

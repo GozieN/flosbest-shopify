@@ -1,0 +1,92 @@
+<section class="perk-strip" aria-label="{{ section.settings.accessibility_label | escape }}">
+  <ul class="perk-list wrap">
+    {%- for block in section.blocks -%}
+      <li {{ block.shopify_attributes }}>
+        <span class="perk-icon">{% render 'flos-icon', name: block.settings.icon, size: 22 %}</span>
+        {{ block.settings.label | escape }}
+      </li>
+    {%- endfor -%}
+  </ul>
+</section>
+{%- if section.settings.show_drip -%}
+  <div class="hero-drip" aria-hidden="true">
+    {% render 'flos-image',
+      image: section.settings.drip,
+      asset: 'flos-maple-drip.webp',
+      alt: '',
+      class: '',
+      width: 838,
+      intrinsic_width: 838,
+      height: 638
+    %}
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Perk strip",
+  "tag": "div",
+  "class": "flos flos-perks",
+  "settings": [
+    {
+      "type": "text",
+      "id": "accessibility_label",
+      "label": "Accessibility label",
+      "default": "What makes the pancakes different"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_drip",
+      "label": "Show maple drip",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "drip",
+      "label": "Maple drip"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "perk",
+      "name": "Perk",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Source of fiber"
+        },
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "default": "grains",
+          "options": [
+            { "value": "grains", "label": "Grains" },
+            { "value": "lightning", "label": "Lightning" },
+            { "value": "leaf", "label": "Leaf" },
+            { "value": "egg", "label": "Egg" },
+            { "value": "heart", "label": "Heart" },
+            { "value": "sun", "label": "Sun" },
+            { "value": "drop", "label": "Drop" },
+            { "value": "clock", "label": "Clock" }
+          ]
+        }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    {
+      "name": "Perk strip",
+      "blocks": [
+        { "type": "perk", "settings": { "label": "Source of fiber", "icon": "grains" } },
+        { "type": "perk", "settings": { "label": "Superfood flavors", "icon": "lightning" } },
+        { "type": "perk", "settings": { "label": "Vitamin-rich moringa", "icon": "leaf" } },
+        { "type": "perk", "settings": { "label": "9g protein", "icon": "egg" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

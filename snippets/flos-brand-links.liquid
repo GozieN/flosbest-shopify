@@ -1,0 +1,46 @@
+{% comment %}
+  Shared Flavors / About / Shop links and the header call to action.
+  Blank URL settings fall back to homepage anchors so About still reaches them.
+
+  @param style {string} inline, drawer, or cta
+{% endcomment %}
+{%- liquid
+  assign flavors_url = routes.root_url | append: '#flavors'
+  assign about_url = pages['about'].url | default: '/pages/about'
+  assign shop_url = routes.root_url | append: '#shop'
+  assign cta_url = routes.root_url | append: '#shop'
+  if section.settings.brand_link_1 != blank
+    assign flavors_url = section.settings.brand_link_1
+  endif
+  if section.settings.brand_link_2 != blank
+    assign about_url = section.settings.brand_link_2
+  endif
+  if section.settings.brand_link_3 != blank
+    assign shop_url = section.settings.brand_link_3
+  endif
+  if section.settings.cta_link != blank
+    assign cta_url = section.settings.cta_link
+  endif
+  assign link_class = 'flos-nav-link'
+  if style == 'drawer'
+    assign link_class = 'menu-drawer__menu-item list-menu__item link link--text focus-inset'
+  endif
+-%}
+{%- if style == 'cta' -%}
+  {%- if section.settings.show_brand_style and section.settings.cta_label != blank -%}
+    <a class="flos-nav-cta" href="{{ cta_url }}">
+      {{ section.settings.cta_label | escape }}
+      <span aria-hidden="true">↗</span>
+    </a>
+  {%- endif -%}
+{%- elsif section.settings.show_brand_links -%}
+  <li>
+    <a class="{{ link_class }}" href="{{ flavors_url }}">{{ section.settings.brand_label_1 | escape }}</a>
+  </li>
+  <li>
+    <a class="{{ link_class }}" href="{{ about_url }}">{{ section.settings.brand_label_2 | escape }}</a>
+  </li>
+  <li>
+    <a class="{{ link_class }}" href="{{ shop_url }}">{{ section.settings.brand_label_3 | escape }}</a>
+  </li>
+{%- endif -%}

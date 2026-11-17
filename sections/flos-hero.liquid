@@ -1,0 +1,145 @@
+<section class="hero" id="top">
+  <div class="hero-copy wrap">
+    <h1>
+      {%- comment -%}
+        First word stacks above the rest on desktop. Mobile keeps the heading on one line.
+      {%- endcomment -%}
+      {%- assign heading_parts = section.settings.heading | split: ' ' -%}
+      <span class="hero-title-lead">{{ heading_parts | first | escape }}</span>
+      {%- assign heading_rest = heading_parts | slice: 1, 12 | join: ' ' -%}
+      {%- if heading_rest != blank -%}
+        <span class="hero-title-rest">{{ heading_rest | escape }}</span>
+      {%- endif -%}
+      {%- if section.settings.heading_emphasis != blank -%}
+        <br>
+        <em>{{ section.settings.heading_emphasis | escape }}</em>
+      {%- endif -%}
+    </h1>
+    <div class="hero-follow">
+      {%- if section.settings.subheading != blank -%}
+        <p class="hero-sub">{{ section.settings.subheading | escape }}</p>
+      {%- endif -%}
+      {%- if section.settings.button_label != blank -%}
+        <div class="hero-actions">
+          <a class="pill-button" href="{% if section.settings.button_link != blank %}{{ section.settings.button_link }}{% else %}{{ routes.root_url }}#flavors{% endif %}">
+            {{ section.settings.button_label | escape }}
+            <span aria-hidden="true">↗</span>
+          </a>
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+  <div class="hero-art" aria-label="{{ section.settings.art_label | escape }}">
+    {% render 'flos-image',
+      image: section.settings.whisk,
+      asset: 'flos-whisk.webp',
+      alt: '',
+      class: 'hero-tool hero-tool--whisk',
+      width: 800,
+      intrinsic_width: 800,
+      height: 697,
+      loading: 'eager'
+    %}
+    {% render 'flos-image',
+      image: section.settings.spoon,
+      asset: 'flos-spoon.webp',
+      alt: '',
+      class: 'hero-tool hero-tool--spoon',
+      width: 520,
+      intrinsic_width: 520,
+      height: 293,
+      loading: 'eager'
+    %}
+    {% render 'flos-image',
+      image: section.settings.yumm,
+      asset: 'flos-yumm.webp',
+      alt: 'Yumm',
+      class: 'hero-yumm',
+      width: 640,
+      intrinsic_width: 640,
+      height: 360,
+      loading: 'eager'
+    %}
+    {% render 'flos-image',
+      image: section.settings.stack,
+      asset: 'flos-hero-stack.webp',
+      alt: section.settings.art_label,
+      class: 'hero-pancake-stack',
+      width: 1200,
+      intrinsic_width: 765,
+      height: 1024,
+      loading: 'eager',
+      fetchpriority: 'high'
+    %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero",
+  "tag": "div",
+  "class": "flos flos-hero",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Good mornings"
+    },
+    {
+      "type": "text",
+      "id": "heading_emphasis",
+      "label": "Heading emphasis",
+      "default": "start here."
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Pantry-friendly pancakes, like you've never had before."
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Meet the stack"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "text",
+      "id": "art_label",
+      "label": "Pancake image description",
+      "default": "Hero pancake stack with blueberries and maple syrup"
+    },
+    {
+      "type": "image_picker",
+      "id": "whisk",
+      "label": "Whisk"
+    },
+    {
+      "type": "image_picker",
+      "id": "spoon",
+      "label": "Spoon"
+    },
+    {
+      "type": "image_picker",
+      "id": "yumm",
+      "label": "Yumm"
+    },
+    {
+      "type": "image_picker",
+      "id": "stack",
+      "label": "Pancake stack"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero"
+    }
+  ]
+}
+{% endschema %}

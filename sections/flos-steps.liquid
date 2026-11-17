@@ -1,0 +1,142 @@
+<section class="steps" id="story">
+  <div class="wrap steps-inner">
+    <div>
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="eyebrow">{{ section.settings.eyebrow | escape }}</p>
+      {%- endif -%}
+      <h2>
+        {{ section.settings.heading | escape }}
+        {%- if section.settings.heading_emphasis != blank -%}
+          <br>
+          <em>{{ section.settings.heading_emphasis | escape }}</em>
+        {%- endif -%}
+      </h2>
+    </div>
+    <div class="step-list">
+      {%- for block in section.blocks -%}
+        <div class="step" {{ block.shopify_attributes }}>
+          <b>{{ block.settings.number | escape }}</b>
+          <span class="step-icon" aria-hidden="true">{% render 'flos-icon', name: block.settings.icon, size: 32 %}</span>
+          <div>
+            <h3>{{ block.settings.title | escape }}</h3>
+            <p>{{ block.settings.text | escape }}</p>
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+    {% render 'flos-image',
+      image: section.settings.whisk,
+      asset: 'flos-whisk.webp',
+      alt: '',
+      class: 'step-whisk',
+      width: 800,
+      intrinsic_width: 800,
+      height: 697
+    %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Steps",
+  "tag": "div",
+  "class": "flos flos-steps",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "The Flo's Best way"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Three easy steps"
+    },
+    {
+      "type": "text",
+      "id": "heading_emphasis",
+      "label": "Heading emphasis",
+      "default": "to your best plate."
+    },
+    {
+      "type": "image_picker",
+      "id": "whisk",
+      "label": "Whisk"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Step",
+      "settings": [
+        {
+          "type": "text",
+          "id": "number",
+          "label": "Number",
+          "default": "01"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Mix it up"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Text",
+          "default": "Water, eggs, and our magic mix. That's the whole list."
+        },
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "default": "package",
+          "options": [
+            { "value": "package", "label": "Package" },
+            { "value": "pot", "label": "Pot" },
+            { "value": "fork", "label": "Fork and knife" }
+          ]
+        }
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "presets": [
+    {
+      "name": "Steps",
+      "blocks": [
+        {
+          "type": "step",
+          "settings": {
+            "number": "01",
+            "title": "Mix it up",
+            "text": "Water, eggs, and our magic mix. That's the whole list.",
+            "icon": "package"
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "number": "02",
+            "title": "Rest & cook",
+            "text": "Let the batter chill. Then give it a golden, buttery sizzle.",
+            "icon": "pot"
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "number": "03",
+            "title": "Stack & enjoy",
+            "text": "Top high, pour generously, and make the morning yours.",
+            "icon": "fork"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
