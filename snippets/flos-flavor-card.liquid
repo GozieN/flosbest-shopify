@@ -1,0 +1,71 @@
+{% comment %}
+  Breakfast-lineup card used on the homepage and in the catalog.
+  Links to the product when one exists. The uploaded product photo
+  replaces the packaged image.
+
+  @param product {product} optional
+  @param title {string} optional lineup name
+  @param subtitle {string} optional
+  @param color {string} optional card color
+  @param image {image} optional editor photo
+  @param asset {string} optional packaged photo
+  @param show_price {boolean} show the product price under the subtitle
+{% endcomment %}
+{%- liquid
+  assign flavor_product = product
+  if flavor_product == blank and title != blank
+    assign guessed_handle = title | handleize
+    assign flavor_product = all_products[guessed_handle]
+  endif
+
+  assign card_title = title
+  if card_title == blank and flavor_product.id != blank
+    assign card_title = flavor_product.title
+  endif
+
+  capture card_color
+    render 'flos-flavor-value', product: flavor_product, title: card_title, color: color, subtitle: subtitle, asset: asset, field: 'color'
+  endcapture
+  capture card_subtitle
+    render 'flos-flavor-value', product: flavor_product, title: card_title, color: color, subtitle: subtitle, asset: asset, field: 'subtitle'
+  endcapture
+  capture card_asset
+    render 'flos-flavor-value', product: flavor_product, title: card_title, color: color, subtitle: subtitle, asset: asset, field: 'asset'
+  endcapture
+
+  assign card_color = card_color | strip
+  assign card_subtitle = card_subtitle | strip
+  assign card_asset = card_asset | strip
+  assign card_image = image
+  if card_image == blank and flavor_product.featured_image != blank
+    assign card_image = flavor_product.featured_image
+  endif
+-%}
+{%- if flavor_product.id != blank -%}
+  <a class="flavor-card" href="{{ flavor_product.url }}" style="background-color: {{ card_color }};">
+{%- else -%}
+  <article class="flavor-card" style="background-color: {{ card_color }};">
+{%- endif -%}
+  {% render 'flos-image',
+    image: card_image,
+    asset: card_asset,
+    alt: card_title,
+    class: 'flavor-image',
+    width: 800,
+    intrinsic_width: 765,
+    height: 1024
+  %}
+  <div>
+    <strong>{{ card_title | escape }}</strong>
+    {%- if card_subtitle != blank -%}
+      <small>{{ card_subtitle | escape }}</small>
+    {%- endif -%}
+    {%- if show_price and flavor_product.id != blank -%}
+      <span class="flavor-price">{{ flavor_product.price | money }}</span>
+    {%- endif -%}
+  </div>
+{%- if flavor_product.id != blank -%}
+  </a>
+{%- else -%}
+  </article>
+{%- endif -%}

@@ -1,0 +1,18 @@
+{% comment %}
+  Square product photo on that flavor's card color.
+  Used on the cart page, the cart drawer, and the add-to-cart notice.
+
+  @param item {line_item}
+{% endcomment %}
+{%- capture flavor_color -%}
+  {%- render 'flos-flavor-value', product: item.product, field: 'color' -%}
+{%- endcapture -%}
+<div class="flos-cart-thumb" style="--flavor-color: {{ flavor_color | strip }};">
+  <img
+    src="{{ item.image | image_url: width: 300 }}"
+    alt="{{ item.image.alt | escape }}"
+    width="150"
+    height="150"
+    loading="lazy"
+  >
+</div>

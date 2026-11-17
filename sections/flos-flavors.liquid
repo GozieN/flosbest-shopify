@@ -18,35 +18,16 @@
   </div>
   <div class="flavor-grid">
     {%- for block in section.blocks -%}
-      {%- liquid
-        assign flavor_asset = block.settings.asset
-        if flavor_asset == blank
-          assign flavor_asset = 'flos-buttermilk.jpg'
-        endif
-      -%}
-      {%- if block.settings.product != blank -%}
-        <a class="flavor-card" href="{{ block.settings.product.url }}" style="background-color: {{ block.settings.color }};" {{ block.shopify_attributes }}>
-      {%- else -%}
-        <article class="flavor-card" style="background-color: {{ block.settings.color }};" {{ block.shopify_attributes }}>
-      {%- endif -%}
-        {% render 'flos-image',
+      <div {{ block.shopify_attributes }}>
+        {% render 'flos-flavor-card',
+          product: block.settings.product,
+          title: block.settings.title,
+          subtitle: block.settings.subtitle,
+          color: block.settings.color,
           image: block.settings.image,
-          asset: flavor_asset,
-          alt: block.settings.title,
-          class: 'flavor-image',
-          width: 800,
-          intrinsic_width: 765,
-          height: 1024
+          asset: block.settings.asset
         %}
-        <div>
-          <strong>{{ block.settings.title | escape }}</strong>
-          <small>{{ block.settings.subtitle | escape }}</small>
-        </div>
-      {%- if block.settings.product != blank -%}
-        </a>
-      {%- else -%}
-        </article>
-      {%- endif -%}
+      </div>
     {%- endfor -%}
   </div>
 </section>
@@ -90,7 +71,8 @@
         {
           "type": "product",
           "id": "product",
-          "label": "Product"
+          "label": "Product",
+          "info": "The catalog and product page use this product. Leave blank and the card still links if the name matches the product handle."
         },
         {
           "type": "text",
@@ -108,6 +90,7 @@
           "type": "color",
           "id": "color",
           "label": "Card color",
+          "info": "Homepage card color. The catalog uses the same color when the product handle is one of the four flavors, or when the product has a Card color metafield (custom.card_color).",
           "default": "#f6c2ca"
         },
         {

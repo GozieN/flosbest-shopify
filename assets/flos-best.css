@@ -1,8 +1,23 @@
 /* Flo's Best landing and about pages.
    Scoped so product, cart, and collection pages keep Dawn's type and color. */
 
-body.gradient:has(.flos) {
-  background: #fffdf5;
+:root,
+.color-scheme-1,
+.color-scheme-2 {
+  --color-background: 255, 252, 239;
+  --gradient-background: #fffcef;
+  --purple: #4520a8;
+  --violet: #693cff;
+  --cream: #fffcef;
+}
+
+body.gradient,
+.color-scheme-1,
+.color-scheme-1.gradient,
+.color-scheme-2,
+.color-scheme-2.gradient {
+  background: #fffcef;
+  background-color: #fffcef;
 }
 
 .flos,
@@ -12,7 +27,7 @@ body.gradient:has(.flos) {
   --violet: #693cff;
   --lilac: #d9c4ff;
   --teal: #229cac;
-  --cream: #fffdf5;
+  --cream: #fffcef;
   --ink: #20104f;
   --yellow: #ffe873;
   --perk: #754bff;
@@ -162,6 +177,49 @@ body.gradient:has(.flos) {
   color: var(--purple);
 }
 
+/* Dark buttons match Meet the stack. Light buttons match Get a stack. */
+.button,
+.button--primary,
+.shopify-challenge__button,
+.customer button {
+  border-radius: 999px;
+  background: var(--purple, #4520a8);
+  color: #fff;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+
+.button:before,
+.button:after,
+.button--primary:before,
+.button--primary:after,
+.shopify-challenge__button:before,
+.shopify-challenge__button:after,
+.customer button:before,
+.customer button:after {
+  border-radius: 999px;
+  box-shadow: none;
+}
+
+.button:not(.button--secondary):not(.button--tertiary):hover,
+.button--primary:hover,
+.shopify-challenge__button:hover,
+.customer button:hover {
+  background: var(--violet, #693cff);
+  color: #fff;
+}
+
+.button--secondary {
+  background: var(--cream, #fffcef);
+  color: var(--purple, #4520a8);
+}
+
+.button--secondary:hover {
+  background: #fff;
+  color: var(--purple, #4520a8);
+}
+
 .flos .hero {
   position: relative;
   display: flex;
@@ -188,6 +246,16 @@ body.gradient:has(.flos) {
   order: 2;
   margin-bottom: 16px;
   padding-top: 48px;
+}
+
+/* Keep "Good" and "mornings" as two words when they share a line. */
+.flos .hero-title-lead,
+.flos .hero-title-rest {
+  white-space: nowrap;
+}
+
+.flos .hero-title-rest::before {
+  content: "\00a0";
 }
 
 .flos .hero-follow {
@@ -380,18 +448,35 @@ body.gradient:has(.flos) {
   gap: 12px;
 }
 
-.flos .flavor-card {
+.flos .flavor-grid > div {
+  min-width: 0;
+}
+
+.flos .flavor-card,
+.flos-catalog .flavor-card {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  height: 100%;
   min-height: 0;
   padding: 16px;
   overflow: hidden;
   border-radius: 16px;
   color: #21114f;
+  text-decoration: none;
 }
 
-.flos .flavor-image {
+.flos .flavor-card .flavor-price,
+.flos-catalog .flavor-card .flavor-price {
+  display: block;
+  margin-top: 8px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.flos .flavor-image,
+.flos-catalog .flavor-image {
   display: block;
   width: 100%;
   height: auto;
@@ -401,14 +486,16 @@ body.gradient:has(.flos) {
   border-radius: 16px;
 }
 
-.flos .flavor-card strong {
+.flos .flavor-card strong,
+.flos-catalog .flavor-card strong {
   display: block;
   max-width: none;
   margin-top: 16px;
   font-size: 18px;
 }
 
-.flos .flavor-card small {
+.flos .flavor-card small,
+.flos-catalog .flavor-card small {
   display: block;
   margin-top: 8px;
   font-size: 14px;
@@ -657,7 +744,7 @@ body.gradient:has(.flos) {
   padding: 28px 32px;
   border-radius: 999px;
   background: var(--teal);
-  color: #fffdf5;
+  color: #fffcef;
 }
 
 .flos .testimonial-bubble p {
@@ -677,8 +764,14 @@ body.gradient:has(.flos) {
 }
 
 /* Header: brand bar, with Dawn's search, account, and cart kept in the icon row. */
+.section-header,
+.header-wrapper,
 .flos-header.header-wrapper {
-  background: var(--cream);
+  background: #fffcef;
+  background-color: #fffcef;
+}
+
+.flos-header.header-wrapper {
   box-shadow: 0 4px 14px rgba(32, 16, 79, 0.12);
 }
 
@@ -865,9 +958,10 @@ body.gradient:has(.flos) {
 }
 
 .flos-footer .footer-yumm-strip {
-  display: grid;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
   height: 128px;
-  place-items: center;
   overflow: hidden;
   background: var(--lilac);
 }
@@ -878,6 +972,8 @@ body.gradient:has(.flos) {
   max-width: calc(100% - 32px);
   height: auto;
   object-fit: contain;
+  /* The artwork is centered in a tall file, so shift it down until the word sits near the stripe bottom. */
+  transform: translateY(22%);
 }
 
 .flos-footer .footer-main {
@@ -981,7 +1077,7 @@ body.gradient:has(.flos) {
 
 .flos-footer .footer__content-top,
 .flos-footer .footer__content-bottom {
-  color: #fffdf5;
+  color: #fffcef;
 }
 
 .flos-footer .footer__content-top {
@@ -999,7 +1095,7 @@ body.gradient:has(.flos) {
 .flos-footer .copyright__content,
 .flos-footer .copyright__content a,
 .flos-footer .policies a {
-  color: #fffdf5;
+  color: #fffcef;
 }
 
 .flos-footer .newsletter-form__field-wrapper .field {
@@ -1011,7 +1107,6 @@ body.gradient:has(.flos) {
 .select__select,
 .customer .field input,
 .customer select,
-textarea,
 input[type='email'],
 input[type='text'],
 input[type='search'],
@@ -1019,6 +1114,23 @@ input[type='tel'],
 input[type='password'],
 input[type='url'] {
   border-radius: 999px;
+}
+
+/* Tall message boxes use a soft corner so the padding is not clipped by a pill. */
+textarea,
+textarea.field__input,
+textarea.field__input:focus,
+textarea.field__input:not(:placeholder-shown),
+.field:has(textarea):before,
+.field:has(textarea):after {
+  border-radius: 16px;
+}
+
+textarea,
+textarea.field__input,
+textarea.field__input:focus,
+textarea.field__input:not(:placeholder-shown) {
+  padding: 16px;
 }
 
 .field:before,
@@ -1186,6 +1298,10 @@ input[type='url'] {
     display: block;
   }
 
+  .flos .hero-title-rest::before {
+    content: none;
+  }
+
   .flos .hero h1 br {
     display: none;
   }
@@ -1240,7 +1356,7 @@ input[type='url'] {
   }
 
   .flos .flavors {
-    padding: 300px 0 96px;
+    padding: 200px 0 96px;
   }
 
   .flos .section-heading {
@@ -1262,13 +1378,15 @@ input[type='url'] {
     gap: 16px;
   }
 
-  .flos .flavor-card {
+  .flos .flavor-card,
+  .flos-catalog .flavor-card {
     min-height: 0;
     padding: 16px;
     border-radius: 20px;
   }
 
-  .flos .flavor-card strong {
+  .flos .flavor-card strong,
+  .flos-catalog .flavor-card strong {
     max-width: none;
     font-size: 16px;
   }
@@ -1468,8 +1586,15 @@ input[type='url'] {
 }
 
 @media (min-width: 1025px) {
+  /* The maple drip sits on the right, so the lineup does not need room to clear it. */
   .flos .flavors {
-    padding-top: 300px;
+    padding-top: 32px;
+  }
+
+  /* Footer line stays a medium title on wide screens, not a display headline. */
+  .flos-footer .footer-headline-strip h2 {
+    font-size: 44px;
+    line-height: 1.08;
   }
 
   .flos .flavor-grid {
@@ -1541,6 +1666,122 @@ input[type='url'] {
     font-size: 13px;
     gap: 16px;
   }
+}
+
+.flos-catalog .product-grid {
+  align-items: stretch;
+}
+
+.flos-product-media,
+.flos-product-media .product__media,
+.flos-product-media .media {
+  background: var(--flavor-color, #fffcef);
+  background-color: var(--flavor-color, #fffcef);
+}
+
+.product__media-wrapper.flos-product-media {
+  align-self: start;
+  box-sizing: border-box;
+  border-radius: 24px;
+  padding: 12px;
+}
+
+/* Dawn's gallery pulls the photo sideways and adds space underneath. Keep an even frame. */
+.flos-product-media media-gallery,
+.flos-product-media .slider-mobile-gutter,
+.flos-product-media .product__media-list,
+.flos-product-media .product__media-item {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.product__media-wrapper.flos-product-media slider-component,
+.product__media-wrapper.flos-product-media slider-component:not(.thumbnail-slider--no-slide) {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.flos-product-media .product__media-list.slider.slider--mobile,
+.flos-product-media .product__media-list.slider.slider--tablet {
+  margin: 0;
+  width: 100%;
+  scroll-padding-left: 0;
+}
+
+.flos-product-media .product__media-list.slider.slider--mobile::after,
+.flos-product-media .product__media-list.slider.slider--tablet::after {
+  content: none;
+  padding: 0;
+}
+
+.flos-product-media .product__media-list.grid--peek .grid__item,
+.flos-product-media .product__media-list.grid--peek.slider .grid__item:first-of-type,
+.flos-product-media .product__media-list.slider .slider__slide {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.flos-product-media .product-media-container.global-media-settings {
+  border: 0;
+  box-shadow: none;
+}
+
+/* The photo is cropped to a square on the flavor color, same as the lineup cards. */
+.flos-product-media .product-media-container,
+.flos-product-media .product-media-container.constrain-height,
+.flos-product-media .product-media-container.constrain-height.media-fit-contain {
+  --aspect-ratio: 1;
+  width: 100%;
+  max-width: 100%;
+}
+
+.flos-product-media .product-media-container .media,
+.flos-product-media .product-media-container.constrain-height .media {
+  padding-top: 100%;
+}
+
+.flos-product-media .media > img,
+.flos-product-media img {
+  object-fit: cover;
+  object-position: center;
+  border-radius: 16px;
+}
+
+.flos-cart-thumb {
+  display: block;
+  width: 10rem;
+  max-width: 100%;
+  padding: 6px;
+  background: var(--flavor-color, #fffcef);
+  border-radius: 12px;
+}
+
+.flos-cart-thumb img {
+  display: block;
+  width: 100%;
+  max-width: none;
+  height: auto;
+  aspect-ratio: 1;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 8px;
+}
+
+.cart-notification-product__image .flos-cart-thumb {
+  width: 7rem;
+}
+
+.product__flavor-note {
+  margin: 8px 0 0;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: #4520a8;
 }
 
 @media (prefers-reduced-motion: reduce) {

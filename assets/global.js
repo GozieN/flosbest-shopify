@@ -569,6 +569,37 @@ customElements.define('menu-drawer', MenuDrawer);
 class HeaderDrawer extends MenuDrawer {
   constructor() {
     super();
+
+    // A menu link should dismiss the drawer and still navigate.
+    // Closing <details> during the click cancels the browser's navigation, so close after it.
+    this.addEventListener('click', (event) => {
+      const link = event.target.closest('a[href]');
+      if (!link || !this.contains(link)) return;
+      if (
+        event.button !== 0 ||
+        event.metaKey ||
+        event.ctrlKey ||
+        event.shiftKey ||
+        event.altKey ||
+        (link.target && link.target !== '_self')
+      ) {
+        return;
+      }
+
+      const href = link.href;
+      window.setTimeout(() => {
+        const details = this.mainDetailsToggle;
+        if (details) {
+          details.classList.remove('menu-opening');
+          details.removeAttribute('open');
+          details.querySelector('summary')?.setAttribute('aria-expanded', 'false');
+        }
+        this.header?.classList.remove('menu-open');
+        document.body.classList.remove(`overflow-hidden-${this.dataset.breakpoint}`);
+
+        if (window.location.href !== href) window.location.assign(href);
+      }, 0);
+    });
   }
 
   openMenuDrawer(summaryElement) {

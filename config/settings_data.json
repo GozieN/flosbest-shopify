@@ -7,23 +7,23 @@
       "color_schemes": {
         "scheme-1": {
           "settings": {
-            "background": "#FFFDF5",
+            "background": "#FFFCEF",
             "background_gradient": "",
             "text": "#121212",
-            "button": "#121212",
+            "button": "#4520A8",
             "button_label": "#FFFFFF",
-            "secondary_button_label": "#121212",
+            "secondary_button_label": "#4520A8",
             "shadow": "#121212"
           }
         },
         "scheme-2": {
           "settings": {
-            "background": "#F3F3F3",
+            "background": "#FFFCEF",
             "background_gradient": "",
             "text": "#121212",
-            "button": "#121212",
-            "button_label": "#F3F3F3",
-            "secondary_button_label": "#121212",
+            "button": "#4520A8",
+            "button_label": "#FFFFFF",
+            "secondary_button_label": "#4520A8",
             "shadow": "#121212"
           }
         },
@@ -71,9 +71,9 @@
       "spacing_grid_vertical": 8,
       "animations_reveal_on_scroll": true,
       "animations_hover_elements": "none",
-      "buttons_border_thickness": 1,
+      "buttons_border_thickness": 0,
       "buttons_border_opacity": 100,
-      "buttons_radius": 0,
+      "buttons_radius": 40,
       "buttons_shadow_opacity": 0,
       "buttons_shadow_horizontal_offset": 0,
       "buttons_shadow_vertical_offset": 4,

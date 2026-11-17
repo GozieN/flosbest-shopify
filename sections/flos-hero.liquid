@@ -2,7 +2,7 @@
   <div class="hero-copy wrap">
     <h1>
       {%- comment -%}
-        First word stacks above the rest on desktop. Mobile keeps the heading on one line.
+        Desktop stacks the first word. A real space stays between the words on one line.
       {%- endcomment -%}
       {%- assign heading_parts = section.settings.heading | split: ' ' -%}
       <span class="hero-title-lead">{{ heading_parts | first | escape }}</span>

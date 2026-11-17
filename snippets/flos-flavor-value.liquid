@@ -1,0 +1,105 @@
+{% comment %}
+  Resolves one flavor field for a product or a lineup title.
+  A product metafield wins. Known flavors fill in the rest.
+  Add a flavor by setting custom.card_color and custom.flavor_note
+  on the product, or by matching the handle in the case below.
+
+  @param product {product} optional
+  @param title {string} lineup name, used to find the product by handle
+  @param color {string} fallback card color
+  @param subtitle {string} fallback subtitle
+  @param asset {string} fallback packaged photo
+  @param field {string} color, subtitle, or asset
+{% endcomment %}
+{%- liquid
+  assign flavor_product = product
+  if flavor_product == blank and title != blank
+    assign guessed_handle = title | handleize
+    assign flavor_product = all_products[guessed_handle]
+  endif
+
+  assign flavor_handle = title | handleize
+  assign flavor_name = title | downcase
+  if flavor_product != blank and flavor_product.id != blank
+    assign flavor_handle = flavor_product.handle
+    assign flavor_name = flavor_product.title | downcase
+  endif
+
+  if flavor_name contains 'buttermilk' or flavor_handle == 'buttermilk-bites-original-superfood-pancake-mix'
+    assign flavor_handle = 'buttermilk-bites'
+  elsif flavor_name contains 'cinnamon'
+    assign flavor_handle = 'cinnamon-chia-sensation'
+  elsif flavor_name contains 'matcha'
+    assign flavor_handle = 'matcha-mornings'
+  elsif flavor_name contains 'blueberry' or flavor_name contains 'acai' or flavor_name contains 'açaí'
+    assign flavor_handle = 'blueberry-acai-bliss'
+  endif
+
+  assign flavor_color = color
+  assign flavor_subtitle = subtitle
+  assign flavor_asset = asset
+
+  if flavor_product != blank and flavor_product.id != blank
+    if flavor_product.metafields.custom.card_color.value != blank
+      assign flavor_color = flavor_product.metafields.custom.card_color.value
+    endif
+    if flavor_product.metafields.custom.flavor_note.value != blank
+      assign flavor_subtitle = flavor_product.metafields.custom.flavor_note.value
+    endif
+  endif
+
+  case flavor_handle
+    when 'buttermilk-bites'
+      if flavor_color == blank
+        assign flavor_color = '#fff18b'
+      endif
+      if flavor_subtitle == blank
+        assign flavor_subtitle = 'Classic + fluffy'
+      endif
+      if flavor_asset == blank
+        assign flavor_asset = 'flos-buttermilk.jpg'
+      endif
+    when 'cinnamon-chia-sensation'
+      if flavor_color == blank
+        assign flavor_color = '#f6c2ca'
+      endif
+      if flavor_subtitle == blank
+        assign flavor_subtitle = 'Warm + cozy'
+      endif
+      if flavor_asset == blank
+        assign flavor_asset = 'flos-cinnamon.webp'
+      endif
+    when 'matcha-mornings'
+      if flavor_color == blank
+        assign flavor_color = '#c8e397'
+      endif
+      if flavor_subtitle == blank
+        assign flavor_subtitle = 'Earthy + fresh'
+      endif
+      if flavor_asset == blank
+        assign flavor_asset = 'flos-matcha.webp'
+      endif
+    when 'blueberry-acai-bliss'
+      if flavor_color == blank
+        assign flavor_color = '#cbb8f8'
+      endif
+      if flavor_subtitle == blank
+        assign flavor_subtitle = 'Fruity + Sweet'
+      endif
+      if flavor_asset == blank
+        assign flavor_asset = 'flos-blueberry.webp'
+      endif
+  endcase
+
+  if flavor_color == blank
+    assign flavor_color = '#fffcef'
+  endif
+-%}
+{%- case field -%}
+  {%- when 'color' -%}
+    {{- flavor_color -}}
+  {%- when 'subtitle' -%}
+    {{- flavor_subtitle -}}
+  {%- when 'asset' -%}
+    {{- flavor_asset -}}
+{%- endcase -%}

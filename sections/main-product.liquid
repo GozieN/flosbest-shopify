@@ -76,7 +76,9 @@
   <product-component view-event-payload="{{ product | standard_event_data: 'view', context: 'page' | escape }}">
     <div class="page-width">
       <div class="product product--{{ section.settings.media_size }} product--{{ section.settings.media_position }} product--{{ section.settings.gallery_layout }} product--mobile-{{ section.settings.mobile_thumbnails }} grid grid--1-col {% if product.media.size > 0 %}grid--2-col-tablet{% else %}product--no-media{% endif %}">
-        <div class="grid__item product__media-wrapper">
+        {% capture flavor_color %}{% render 'flos-flavor-value', product: product, field: 'color' %}{% endcapture %}
+        {% capture flavor_subtitle %}{% render 'flos-flavor-value', product: product, field: 'subtitle' %}{% endcapture %}
+        <div class="grid__item product__media-wrapper flos-product-media" style="--flavor-color: {{ flavor_color | strip }};">
           {% render 'product-media-gallery', variant_images: variant_images %}
         </div>
         <div class="product__info-wrapper grid__item{% if settings.page_width > 1400 and section.settings.media_size == "small" %} product__info-wrapper--extra-padding{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
@@ -97,15 +99,18 @@
                   >
                     {{- block.settings.text -}}
                   </p>
-                {%- when 'title' -%}
-                  <div class="product__title" {{ block.shopify_attributes }}>
-                    <h1>{{ product.title | escape }}</h1>
-                    <a href="{{ product.url }}" class="product__title">
-                      <h2 class="h1">
-                        {{ product.title | escape }}
-                      </h2>
-                    </a>
-                  </div>
+                  {%- when 'title' -%}
+                    <div class="product__title" {{ block.shopify_attributes }}>
+                      <h1>{{ product.title | escape }}</h1>
+                      <a href="{{ product.url }}" class="product__title">
+                        <h2 class="h1">
+                          {{ product.title | escape }}
+                        </h2>
+                      </a>
+                      {%- if flavor_subtitle != blank -%}
+                        <p class="product__flavor-note">{{ flavor_subtitle | strip | escape }}</p>
+                      {%- endif -%}
+                    </div>
                 {%- when 'price' -%}
                   <div id="price-{{ section.id }}" role="status" {{ block.shopify_attributes }}>
                     {%- render 'price',

@@ -46,14 +46,6 @@
         "lead": "Moringa is a base in each of our pancakes because the leaves are naturally high in vitamins and minerals. It is not a topping we sprinkle on later. It is in the mix, in every flavor."
       }
     },
-    "flos_testimonial": {
-      "type": "flos-testimonial",
-      "settings": {
-        "accessibility_label": "Customer testimonial",
-        "quote": "“They are so soft and tasty, I’ve never had pancake flavors like this! It makes a perfect gift!”",
-        "citation": "— A happy breakfast person"
-      }
-    },
     "flos_values": {
       "type": "flos-values",
       "blocks": {
@@ -90,5 +82,5 @@
       }
     }
   },
-  "order": ["flos_about", "flos_moringa", "flos_values", "flos_testimonial"]
+  "order": ["flos_about", "flos_moringa", "flos_values"]
 }

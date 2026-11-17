@@ -1,22 +1,21 @@
 {% comment %}
-  Shared Flavors / About / Shop links and the header call to action.
+  Shared Flavors / About links and the header call to action.
   Blank URL settings fall back to homepage anchors so About still reaches them.
 
   @param style {string} inline, drawer, or cta
 {% endcomment %}
+{%- capture about_url -%}{%- render 'flos-about-url' -%}{%- endcapture -%}
 {%- liquid
   assign flavors_url = routes.root_url | append: '#flavors'
-  assign about_url = pages['about'].url | default: '/pages/about'
-  assign shop_url = routes.root_url | append: '#shop'
+  assign about_url = about_url | strip
+  assign goods_url = routes.all_products_collection_url
+  assign contact_url = pages['contact'].url | default: '/pages/contact'
   assign cta_url = routes.root_url | append: '#shop'
   if section.settings.brand_link_1 != blank
     assign flavors_url = section.settings.brand_link_1
   endif
   if section.settings.brand_link_2 != blank
     assign about_url = section.settings.brand_link_2
-  endif
-  if section.settings.brand_link_3 != blank
-    assign shop_url = section.settings.brand_link_3
   endif
   if section.settings.cta_link != blank
     assign cta_url = section.settings.cta_link
@@ -40,7 +39,12 @@
   <li>
     <a class="{{ link_class }}" href="{{ about_url }}">{{ section.settings.brand_label_2 | escape }}</a>
   </li>
-  <li>
-    <a class="{{ link_class }}" href="{{ shop_url }}">{{ section.settings.brand_label_3 | escape }}</a>
-  </li>
+  {%- if style == 'inline' -%}
+    <li>
+      <a class="{{ link_class }}" href="{{ goods_url }}">Goods</a>
+    </li>
+    <li>
+      <a class="{{ link_class }}" href="{{ contact_url }}">Contact</a>
+    </li>
+  {%- endif -%}
 {%- endif -%}

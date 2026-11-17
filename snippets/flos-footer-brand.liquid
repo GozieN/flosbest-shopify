@@ -49,10 +49,10 @@
             <a href="{{ link.url }}">{{ link.title | escape }}</a>
           {%- endfor -%}
         {%- else -%}
-          <a href="{{ pages['about'].url | default: '/pages/about' }}">About</a>
+          <a href="{%- render 'flos-about-url' -%}">About</a>
           <a href="{{ pages['contact'].url | default: '/pages/contact' }}">Contact</a>
-          <a href="{{ routes.all_products_collection_url }}">Gifts</a>
-          <a href="{{ routes.all_products_collection_url }}">Tasty! ↗</a>
+          <a href="{{ routes.all_products_collection_url }}">Goods</a>
+          <a href="{{ routes.root_url }}#flavors">Tasty! ↗</a>
         {%- endif -%}
       </nav>
       <details class="footer-collapse">
@@ -67,10 +67,10 @@
               <a href="{{ link.url }}">{{ link.title | escape }}</a>
             {%- endfor -%}
           {%- else -%}
-            <a href="{{ pages['about'].url | default: '/pages/about' }}">About</a>
+            <a href="{%- render 'flos-about-url' -%}">About</a>
             <a href="{{ pages['contact'].url | default: '/pages/contact' }}">Contact</a>
-            <a href="{{ routes.all_products_collection_url }}">Gifts</a>
-            <a href="{{ routes.all_products_collection_url }}">Tasty! ↗</a>
+            <a href="{{ routes.all_products_collection_url }}">Goods</a>
+            <a href="{{ routes.root_url }}#flavors">Tasty! ↗</a>
           {%- endif -%}
         </nav>
       </details>

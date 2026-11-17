@@ -63,6 +63,7 @@
         "buttermilk": {
           "type": "flavor",
           "settings": {
+            "product": "buttermilk-bites-original-superfood-pancake-mix",
             "title": "Buttermilk Bites",
             "subtitle": "Classic + fluffy",
             "color": "#fff18b",
